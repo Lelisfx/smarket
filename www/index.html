@@ -55,27 +55,36 @@
                                 <li>
                                     <div class="item-content">
                                         <div class="item-inner"> 
-                                            <div class="item-title label"><i class="fa fa-barcode" aria-hidden="true"></i>
-</div>
+                                            <div class="item-title label"><i class="fa fa-barcode" aria-hidden="true"></i></div>
                                                 <div class="item-input">
                                                     <input type="text" placeholder="Produto" name="nome" ng-model="nome"/>
                                                 </div>
                                             </div>
                                     </div>
                                 </li>
-                                 <li>
-      <div class="item-content">
-        <div class="item-inner">
-            <div class="item-title label"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></div>
-          <div class="item-input">
-            <input type="text" placeholder="Início" readonly id="calendar-default" ng-model="dt_ini">
-          </div>
-        </div>
-      </div>
-    </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="Início" readonly id="calendar-default" ng-model="dt_ini">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label"><i class="fa fa-calendar-times-o" aria-hidden="true"></i></div>
+                                            <div class="item-input">
+                                                <input type="text" placeholder="Término"  id="calendar-default2" ng-model="dt_fim">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
-                    <a href="#" class="button color-green button-raised button-fill" ng-click="store(nome,dt_ini)">Salvar</a>
+                    <a href="#" class="button color-green button-raised button-fill" ng-click="store(nome,dt_ini,dt_fim)">Salvar</a>
                 </div>
 
              <div class="list-block" > 
@@ -84,17 +93,21 @@
                 <li>
                     <div class="item-content">
                         <div class="item-media"><i class="fa fa-check-square" aria-hidden="true"></i>
-</div>
+                        </div>
                         <div class="item-inner"> 
                             <div class="item-title">
-                                {{item}}
+                               {{item.nome}} : {{item.inicio}} - {{item.termino}}
+                                <a  href="#" ng-click="delete(item.nome)"><i class="fa fa-trash"></i></a>
                             </div>
                         </div>
                      </div>
                  </li>
 
             </ul>
+                
               </div> 
+                <a href="#" class="button color-blue button-raised button-fill" 
+                   ng-click="delete()">Limpar Storage</a>
               </div>
 
             </div>
@@ -105,7 +118,6 @@
           <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>
         </div>
       </div>
-    </div>
     <!-- Path to Framework7 Library JS-->
     <script type="text/javascript" src="js/framework7.min.js"></script>
     <!-- Path to your app js-->
@@ -114,44 +126,7 @@
     <script type="text/javascript" src="js/index.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/angular-1.6.4.min.js"></script>
-       <script type="text/javascript">
-        //app.initialize();
-        var calendarDefault = myApp.calendar({
-        input: '#calendar-default',
-            dateFormat: 'dd/mm/yyyy'
-        }); 
-        
-        var apk = angular.module('listaProdutos',[]);
-        apk.controller('listaProdutosCtrl', function ($scope){
-            $scope.title = 'Lista Produtos';
-            //localStorage.setItem("eu","sei");
-            $scope.stored = localStorage.getItem("eu");
-            $scope.store = function (nome,dt_ini){
-                //alert(nome+':'+dt_ini);
-                localStorage.setItem(nome,dt_ini);
-                list();
-            }
-            
-            list();
-            
-            function list(){
-                var tam = localStorage.length;
-            //localStorage.clear();
-                $scope.itens = [];
-                while(tam >= 0) {
-                    
-                    if(localStorage.key(tam)){
-                        var chave = localStorage.key(tam);
-                        $scope.itens.push(chave + ' : ' + localStorage.getItem(chave));
-                        //$scope.itens.nome.push(chave);
-                        //$scope.itens.dia.push(localStorage.getItem(chave));
-                    }
-                    tam = tam-1;
-               }
-            } //fim list
-        });
-        
-        
-    </script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+
   </body>
 </html>
